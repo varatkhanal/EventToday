@@ -1,6 +1,11 @@
 package com.EventToday.event.services;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +50,13 @@ public class eventsServiceBeans extends abstractRepository<Integer, events> impl
 	@Override
 	public void delete(int id) {
 		eventsrepository.delete(id);		
+	}
+	
+	@Override
+	public List<BigDecimal> sortTickets(){	
+		List<BigDecimal> list =eventsrepository.sortTicket();
+		Collections.sort(list);
+		return list;
 	}
 
 }

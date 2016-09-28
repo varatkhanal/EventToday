@@ -1,5 +1,7 @@
 package com.EventToday.event.Repository;
 
+import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -40,4 +42,21 @@ public class eventsRepositoryIMPL extends abstractRepository<Integer, events> im
 		query.setInteger("id", id);
 		query.executeUpdate();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<BigDecimal> sortTicket(){
+		Query query = getSession().createSQLQuery("select ticket_price from event");
+		final List<BigDecimal> list = new LinkedList<>();
+		for(final Object o : query.list()) {
+		    list.add((BigDecimal)o);
+		}
+	    return list;
+	}
+	
+	 /*@SuppressWarnings("unchecked") 
+      public List<events> sortTicket() {
+	       Session s = acquireSession();
+	       Query   q = s.createQuery("from foo where active");
+	       return (List<Foo>) q.list();
+	  }*/
 }

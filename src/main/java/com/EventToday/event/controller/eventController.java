@@ -1,7 +1,10 @@
 package com.EventToday.event.controller;
 
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -105,4 +108,14 @@ public class eventController {
 	   // return new ModelAndView("allevents",model);
 		
 	}
+	@RequestMapping(value = { "/cheap-ticket" }, method = RequestMethod.GET)
+	public ModelAndView sortTickets(ModelMap model) {
+		List<BigDecimal> list = new ArrayList<>();
+		list = eventsservices.sortTickets();
+		model.addAttribute("lists", list);
+		//return "redirect:/events";
+	   return new ModelAndView("tickets",model);
+		
+	}
+	
 }
