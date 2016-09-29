@@ -33,6 +33,7 @@
 		</c:forEach>
 	</table>
 	<br/>
+	<a href="<c:url value='/tickets' />">sort for chipest event price</a>
 	<a href="<c:url value='/new' />">Add New event</a>
 </body>
 </html>

@@ -108,11 +108,11 @@ public class eventController {
 	   // return new ModelAndView("allevents",model);
 		
 	}
-	@RequestMapping(value = { "/cheap-ticket" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/tickets" }, method = RequestMethod.GET)
 	public ModelAndView sortTickets(ModelMap model) {
 		List<BigDecimal> list = new ArrayList<>();
 		list = eventsservices.sortTickets();
-		model.addAttribute("lists", list);
+		model.addAttribute("list", list);
 		//return "redirect:/events";
 	   return new ModelAndView("tickets",model);
 		

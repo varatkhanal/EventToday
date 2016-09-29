@@ -24,11 +24,11 @@
 		</tr>
 		<c:forEach items="${list}" var="evnts">
 			<tr>
-			<td>${list.price}</td>
+			<td>${evnts}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br/>
-	<a href="<c:url value='/allevents' />">go to all events</a>
+	<a href="<c:url value='/events' />">go to all events</a>
 </body>
 </html>
