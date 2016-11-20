@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.EventToday.event.model.events;
 
-@Repository("eventsrepository")
+@Repository("Eventsrepository")
 public class eventsRepositoryIMPL extends abstractRepository<Integer, events> implements eventsRepository{
 
 	@Override

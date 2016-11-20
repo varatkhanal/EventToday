@@ -2,24 +2,31 @@ package com.EventToday.event.controller;
 
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.EventToday.event.model.Organizer;
 import com.EventToday.event.model.events;
 import com.EventToday.event.services.eventsServices;
 
@@ -34,7 +41,19 @@ public class eventController {
 	@Autowired
 	MessageSource messageSource;
 	
-	
+	@InitBinder("organizer")
+    public void initOwnerBinder(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
+
+    @InitBinder("evt")
+    public void initPetBinder(WebDataBinder dataBinder) {
+        dataBinder.setValidator(new EventValidator());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		dateFormat.setLenient(false);
+		dataBinder.registerCustomEditor(Date.class, "date", new CustomDateEditor(dateFormat, true));
+    }
+    
 	@RequestMapping(value={"/","/events"},
 			method=RequestMethod.GET)
 	public ModelAndView getEvents(ModelMap model){
@@ -58,26 +77,12 @@ public class eventController {
 	}
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
 	public ModelAndView newEvents(ModelMap model) {
-		events events= new events();
-		model.addAttribute("events", events);
+		Organizer org= new Organizer();
+		model.addAttribute("org", org);
 		model.addAttribute("edit", false);
-		return new ModelAndView("registration",model);
+		return new ModelAndView("registerAc",model);
 	}
 	
-	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-	public ModelAndView saveEvents(@Valid events evnts, BindingResult result,
-			ModelMap model) {
-
-		if (result.hasErrors()) {
-			//model.addAttribute("events", "not registered");
-			return new ModelAndView("registration",model);	
-		}
-		
-		eventsservices.create(evnts);
-
-		model.addAttribute("success", "Events " + evnts.getEventname() + " registered successfully");
-		return new ModelAndView("success",model);	
-	}
 	
 	@RequestMapping(value = { "/edit-{id}-event" }, method = RequestMethod.GET)
 	public ModelAndView editEvents(@PathVariable int id, ModelMap model) {
@@ -116,6 +121,28 @@ public class eventController {
 		//return "redirect:/events";
 	   return new ModelAndView("tickets",model);
 		
+	}
+	
+	@RequestMapping(value = { "/registration" }, method = RequestMethod.POST)
+	public ModelAndView saveEvents( Organizer org, @Valid events evt, BindingResult result,ModelMap model) {
+		/*if (result.hasErrors()) {
+			//model.addAttribute("events", "not registered");
+			return new ModelAndView("registerAC",model);	
+		}*/
+		if (StringUtils.hasLength(org.getOrganizerName()) && evt.isNew() && org.getOrgAddress().isEmpty() && org.getMailAddress().isEmpty() && org.getOrgTelephone() != null){
+            result.rejectValue("name", "duplicate", "already exists");
+        }
+        if (result.hasErrors()) {
+            model.addAttribute("evt", evt);
+            return new ModelAndView("registration",model);
+        } else {
+           // org.addEvents(evt);
+            this.eventsservices.create(evt);
+            model.addAttribute("evt", evt);
+            return new ModelAndView("registration",model);
+            //return "redirect:/owners/{ownerId}";
+        }
+        
 	}
 	
 }

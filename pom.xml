@@ -59,38 +59,53 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			</dependency>
+		</dependency>
 		
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency> 
-		 <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		 <!--  dependency>
 	        <groupId>org.apache.tomcat.embed</groupId>
 	        <artifactId>tomcat-embed-jasper</artifactId>
 	        <scope>provided</scope>
-    	</dependency> 
+    	</dependency--> 
 		<!-- Hibernate -->
 		<dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.hibernate</groupId>
+                <artifactId>ejb3-persistence</artifactId>
+                </exclusion>
+                <exclusion>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
+            <artifactId>hibernate</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+        </exclusion>
+    </exclusions>               
+</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			</dependency>
+</dependency>
 
 		<!-- jsr303 validation -->
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>1.0.0.GA</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>4.0.2.GA</version>
+    </dependency>
 		
 		<!-- MySQL -->
 		<dependency>
@@ -100,15 +115,21 @@
 		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>
-		    <version>1.5.2</version>
+		    </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
 		<!-- Joda-Time -->		
 		<dependency>
   			<groupId>joda-time</groupId>
   			<artifactId>joda-time</artifactId>
-  			<version>${joda-time.version}</version>
-  		</dependency>
+  			</dependency>
 		
 		<!-- To map JodaTime with database type -->  		
   		<dependency>
@@ -117,12 +138,11 @@
     		<version>3.0.0.CR1</version>
 		</dependency>
 		
-		<!-- < Servlet+JSP+JSTL >
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-		</dependency-->
+			</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
@@ -132,8 +152,20 @@
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>jstl</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-jpamodelgen</artifactId>
+		    <scope>compile</scope>
+		    <optional>true</optional>
+		 </dependency>
+		 <dependency>
+		      <groupId>javax.transaction</groupId>
+		      <artifactId>jta</artifactId>
+		      <version>1.1</version>
+		</dependency>
 		
 	</dependencies>
+	
 
 	<build>
 		<plugins>
@@ -156,6 +188,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<useSystemClassLoader>false</useSystemClassLoader>
+					<compilerArgs>
+         					 <arg>-Aopenjpa.metamodel=true</arg>
+        			</compilerArgs>
 				</configuration>
 			</plugin>
 		</plugins>
