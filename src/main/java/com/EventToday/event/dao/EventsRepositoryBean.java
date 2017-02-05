@@ -1,4 +1,4 @@
-package com.EventToday.event.Repository;
+package com.EventToday.event.dao;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -9,32 +9,22 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.EventToday.event.model.events;
+import com.EventToday.event.model.Events;
 
-@Repository("Eventsrepository")
-public class eventsRepositoryIMPL extends abstractRepository<Integer, events> implements eventsRepository{
+@Repository("eventsRepository")
+public class EventsRepositoryBean extends AbstractEventsRepository<Integer, Events> implements EventsRepository{
 
-	@Override
-	public events findById(int id) {
-		return (events) getByKey(id);
-	}
-
-	@Override
-	public void saveEvents(events event) {
-		persist(event);
-		
-	}
 	
 	@SuppressWarnings("unchecked")
-	public List<events> findAll() {
+	public List<Events> findAll() {
 		Criteria criteria = createEntityCriteria();
-		return (List<events>) criteria.list();
+		return (List<Events>) criteria.list();
 	}
 	
-	public events findEventsBySsn(String ssn) {
+	public Events findEventsBySsn(String ssn) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("ssn", ssn));
-		return (events) criteria.uniqueResult();
+		return (Events) criteria.uniqueResult();
 	}
     
 	public void delete(int id){
@@ -51,6 +41,12 @@ public class eventsRepositoryIMPL extends abstractRepository<Integer, events> im
 		    list.add((BigDecimal)o);
 		}
 	    return list;
+	}
+
+	@Override
+	public Events findByeventName(String eventName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	 /*@SuppressWarnings("unchecked") 

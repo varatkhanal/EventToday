@@ -1,4 +1,4 @@
-package com.EventToday.event.Repository;
+package com.EventToday.event.dao;
 
 import java.util.List;
 
@@ -8,13 +8,9 @@ import org.springframework.stereotype.Repository;
 import com.EventToday.event.model.Organizer;
 
 @Repository("Orgrepository")
-public class OrganizerDAOIMPL extends AbstractOrganizerDAO<Integer, Organizer> implements OrganizerDAO {
+public class OrganizerRepositoryBean extends AbstractOrganizerRepository<Integer, Organizer> implements OrganizerRepository {
 	
-	@Override
-	public Organizer findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public void saveOrganizer(Organizer org) {
@@ -34,6 +30,22 @@ public class OrganizerDAOIMPL extends AbstractOrganizerDAO<Integer, Organizer> i
 	public List<Organizer> findAll() {
 		//Criteria criteria = createEntityCriteria();
 		//return (List<Organizer>) criteria.list();
+		return null;
+	}
+	
+	@Override
+	public Organizer findByOrganizerName(String OrganizerName){
+		return (Organizer) findByOrganizerName(OrganizerName);
+	}
+
+	@Override
+	public Organizer findByMailAddress(String mailAddress) {	
+		return (Organizer) findByMailAddress(mailAddress);
+	}
+
+	@Override
+	public Organizer findById(int id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

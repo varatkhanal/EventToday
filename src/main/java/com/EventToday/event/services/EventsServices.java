@@ -3,18 +3,19 @@ package com.EventToday.event.services;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
-import com.EventToday.event.model.events;
 
-public interface eventsServices {
+import com.EventToday.event.model.Events;
+
+public interface EventsServices {
 	
-	Collection<events> findAll();
+	Collection<Events> findAll();
 	
-	events findById(int id);
+	Events findById(int id);
 	
-	void create(events evnts);
+	void create(Events evnts);
 	
 	
-	void update(events evnts);
+	void update(Events evnts);
 	
 	List<BigDecimal> sortTickets();
 	

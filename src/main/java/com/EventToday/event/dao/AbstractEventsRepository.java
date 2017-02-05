@@ -1,4 +1,4 @@
-package com.EventToday.event.Repository;
+package com.EventToday.event.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -8,14 +8,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class AbstractOrganizerDAO <PK extends Serializable, T>{
-	private final Class<T> persistentClass;
 
+public abstract class AbstractEventsRepository<PK extends Serializable, T>{
+private final Class<T> persistentClass;
+	
 	@SuppressWarnings("unchecked")
-	public AbstractOrganizerDAO(){
+	public AbstractEventsRepository(){
 		this.persistentClass =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 	}
-
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -39,4 +40,5 @@ public abstract class AbstractOrganizerDAO <PK extends Serializable, T>{
 	protected Criteria createEntityCriteria(){
 		return getSession().createCriteria(persistentClass);
 	}
+
 }

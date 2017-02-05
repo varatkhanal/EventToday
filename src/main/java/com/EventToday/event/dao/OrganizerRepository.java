@@ -1,13 +1,17 @@
-package com.EventToday.event.Repository;
+package com.EventToday.event.dao;
 
 import java.util.List;
 
 import com.EventToday.event.model.Organizer;
 
 
-public interface OrganizerDAO {
+public interface OrganizerRepository {
 	
 	Organizer findById(int id);
+	
+	Organizer findByOrganizerName(String OrganizerName);
+	
+	Organizer findByMailAddress(String mailAddress);
 
 	void saveOrganizer(Organizer org);
 	

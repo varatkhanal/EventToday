@@ -17,9 +17,10 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 @Entity
 @Table(name="event")
-public class events extends BaseEntity{
+public class Events{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,12 +30,12 @@ public class events extends BaseEntity{
     @JoinColumn(name = "roid")
     private Organizer organizer;
 
-	public events() {
+	public Events() {
 		
 	}
 	
 	@Column(name = "event_name", nullable = false)
-	private String eventname;
+	private String eventName;
 	
 	@Column(name = "event_date", nullable = false)
 	@DateTimeFormat(pattern="dd/MM/yyyy")
@@ -51,16 +52,16 @@ public class events extends BaseEntity{
 	private String location;
 	
 	@Column(name="happening_city", nullable=false)
-	private String Address;
+	private String address;
 	
 	@Column(name="contact_no", nullable=false)
-	private String contact_no;
+	private String contactNo;
 	
 	@Column(name="alt_contact_no", nullable=false)
-	private String alternate_contact;
+	private String alternateContact;
 	
 	@Column(name="mail_address")
-	private String mail_address;
+	private String mailAddress;
 	
 	
 	
@@ -72,24 +73,24 @@ public class events extends BaseEntity{
 		this.organizer = organizer;
 	}
 	public String getContact_no() {
-		return contact_no;
+		return contactNo;
 	}
 	public void setContact_no(String contact_no) {
-		this.contact_no = contact_no;
+		this.contactNo = contact_no;
 	}
 	public String getAlternate_contact() {
-		return alternate_contact;
+		return alternateContact;
 	}
 	public void setAlternate_contact(String alternate_contact) {
-		this.alternate_contact = alternate_contact;
+		this.alternateContact = alternate_contact;
 	}
 	
 	
 	public String getMail_address() {
-		return mail_address;
+		return mailAddress;
 	}
 	public void setMail_address(String mail_address) {
-		this.mail_address = mail_address;
+		this.mailAddress = mail_address;
 	}
 	public String getLocation() {
 		return location;
@@ -98,10 +99,10 @@ public class events extends BaseEntity{
 		this.location = location;
 	}
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
 
 	public Integer getId() {
@@ -112,11 +113,11 @@ public class events extends BaseEntity{
 	}
 	
 	public String getEventname() {
-		return eventname;
+		return eventName;
 		
 	}
 	public void setEventname(String eventname) {
-		this.eventname = eventname;
+		this.eventName = eventname;
 	}
 
 	
@@ -140,19 +141,20 @@ public class events extends BaseEntity{
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof events))
+		if (!(obj instanceof Events))
 			return false;
-		events other = (events) obj;
+		Events other = (Events) obj;
 		if (id != other.id)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "events [id=" + id + ", eventname=" + eventname + ", date=" + date + ", price=" + price + ", location="
-				+ location + ", Address=" + Address + ", contact_no=" + contact_no + ", alternate_contact="
-				+ alternate_contact + ", mail_address=" + mail_address + "]";
+		return "events [id=" + id + ", eventname=" + eventName + ", date=" + date + ", price=" + price + ", location="
+				+ location + ", Address=" + address + ", contact_no=" + contactNo + ", alternate_contact="
+				+ alternateContact + ", mail_address=" + mailAddress + "]";
 	}
 	
 	
 }
+

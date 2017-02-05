@@ -1,20 +1,18 @@
 package com.EventToday.event;
 
-
+import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 
 @SpringBootApplication
-@EnableCaching
+@EnableAutoConfiguration
 @EnableScheduling
 public class EventTodayApplication extends SpringBootServletInitializer {
 
@@ -22,16 +20,20 @@ public class EventTodayApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(EventTodayApplication.class);
     }
+
 	public static void main(String[] args) {
 		SpringApplication.run(EventTodayApplication.class, args);
-		//ApplicationContext ctx = SpringApplication.run(EventTodayApplication.class, args);
 	}
+	
+	public void configureDefaultServletHandling(
+            DefaultServletHandlerConfigurer configurer) {
+        	configurer.enable();
+    } 
+
+  
 	
 	@Bean
-	public CacheManager cacheManager(){
-		GuavaCacheManager cacheManager = new GuavaCacheManager("events");
-		return cacheManager;
-	}
-	
-	
+    public SessionFactory sessionFactory(HibernateEntityManagerFactory hemf) {
+        return hemf.getSessionFactory();
+    }
 }

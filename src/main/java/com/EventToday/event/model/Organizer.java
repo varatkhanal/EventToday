@@ -1,11 +1,6 @@
 package com.EventToday.event.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,44 +9,92 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
-import org.springframework.beans.support.MutableSortDefinition;
-import org.springframework.beans.support.PropertyComparator;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.EventToday.event.model.Events;
+import com.EventToday.event.validation.ValidEmail;
 
 @Entity
 @Table(name="organizer")
-public class Organizer extends BaseEntity{
+public class Organizer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int roid;
 	
 	@Column(name="orgNname", nullable=false)
+	@NotEmpty(message = "Please enter orgnizer Name.")
 	private String organizerName;
 	
+	
 	@Column(name = "org_contact", nullable = false)
+	@NotEmpty(message = "Please enter Telephone.")
 	private String orgTelephone;
 	
 	@Column(name = "org_altcontact", nullable = false)
 	private String orgContact;
 	
+	@ValidEmail
 	@Column(name = "org_mail_address", nullable = false)
+	//@NotEmpty(message = "Please enter orgnizer mail address")
 	private String mailAddress;
 	
 	@Column(name = "org_address", nullable = false)
+	@NotEmpty(message = "Please enter orgnizer Name.")
 	private String orgAddress;
 	
-	 @OneToMany(mappedBy = "organizer")
-	  private Set<events> evts;
+	@Column(name = "orgCity", nullable = false)
+	@NotEmpty(message = "Please enter orgnizer Address city.")
+	private String orgCity;
+	
+	@Column(name = "org_password", nullable = false)
+	@NotEmpty(message = "Please enter your password.")
+    @Size(min = 6, max = 15, message = "Your password must between 6 and 15 characters")
+    private String password;
+	
+	@Transient
+	@NotEmpty(message = "Please retype your password.")
+    private String retypePassword;
+	
+	 public String getRetypePassword() {
+		return retypePassword;
+	}
+
+	public void setRetypePassword(String retypePassword) {
+		this.retypePassword = retypePassword;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getOrgCity() {
+		return orgCity;
+	}
+
+	public void setOrgCity(String orgCity) {
+		this.orgCity = orgCity;
+	}
+
+
+	@OneToMany(mappedBy = "organizer")
+	  private Set<Events> evts;
 	  
 	  
 
 
-	public Set<events> getEvts() {
+	public Set<Events> getEvts() {
 		return evts;
 	}
 
-	public void setEvts(Set<events> evts) {
+	public void setEvts(Set<Events> evts) {
 		this.evts = evts;
 	}
 
@@ -119,3 +162,4 @@ public class Organizer extends BaseEntity{
 
 	
 }
+

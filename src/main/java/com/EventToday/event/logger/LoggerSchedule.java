@@ -1,15 +1,12 @@
 package com.EventToday.event.logger;
 
-import java.util.Collection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.EventToday.event.model.events;
-import com.EventToday.event.services.eventsServices;
+import com.EventToday.event.services.EventsServices;
 
 @Component
 public class LoggerSchedule {
@@ -17,7 +14,7 @@ public class LoggerSchedule {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	eventsServices eventsserv;
+	EventsServices eventsserv;
 	
 	//@Scheduled(cron="0,30 * * * * *")
 	void cronJob() {
