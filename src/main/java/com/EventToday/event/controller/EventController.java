@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.EventToday.event.model.Events;
 import com.EventToday.event.model.Organizer;
 import com.EventToday.event.services.EventsServices;
+import com.EventToday.event.services.OrganizerServices;
 
 
 
@@ -35,8 +36,8 @@ public class EventController {
 	@Autowired
 	private EventsServices eventsServices;
 	
-/*	@Autowired
-	private OrganizerServices orgServices;*/
+	@Autowired
+	private OrganizerServices orgServices;
 	
 	
 	@Autowired
@@ -161,7 +162,7 @@ public class EventController {
             model.addAttribute("Organizer", org);
             return new ModelAndView("registerAc",model);
         } else {
-            //owner.addPet(pet);
+            
         	//org.setPassword(PasswordEncripter.md5(org.getPassword()));
             this.orgServices.saveOrganizer(org);
             Events evt = new Events();
@@ -193,7 +194,7 @@ public class EventController {
 	        return "registerAc";
 	    } 
 	    else {
-	    	//orgServices.saveOrganizer(org);
+	    	orgServices.saveOrganizer(org);
 	    	//securityService.autologin(org.getMailAddress(), org.getPassword());
 	        return "registration";
 	    }
