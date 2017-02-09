@@ -26,7 +26,7 @@ public class Organizer {
 	private Integer oid;
 
 
-	@Column(name="orgNname", nullable=false)
+	@Column(name="org_name", nullable=false)
 	@NotEmpty(message = "Please enter orgnizer Name.")
 	private String organizerName;
 	
@@ -47,7 +47,7 @@ public class Organizer {
 	@NotEmpty(message = "Please enter orgnizer Name.")
 	private String orgAddress;
 	
-	@Column(name = "orgCity", nullable = false)
+	@Column(name = "org_city", nullable = false)
 	@NotEmpty(message = "Please enter orgnizer Address city.")
 	private String orgCity;
 	

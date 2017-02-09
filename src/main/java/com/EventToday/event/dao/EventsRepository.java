@@ -9,7 +9,7 @@ import com.EventToday.event.model.Events;
 
 public interface EventsRepository extends Repository<Events, Integer>{
 	
-	//@Query("SELECT DISTINCT events FROM Events")
+	
     @Transactional(readOnly = true)
     Collection<Events> findAll();
 	
