@@ -1,4 +1,4 @@
-package com.EventToday.event.controller;
+package com.EventToday.event.validation;
 
 import javax.validation.Valid;
 

@@ -14,18 +14,24 @@ import com.EventToday.event.model.Organizer;
 public class OrganizerServicesBean implements OrganizerServices{ 
 	
 	@Autowired
-	private OrganizerRepository orgDao;
+	private OrganizerRepository organizerRepository;
 	
+
+	
+	public OrganizerServicesBean(OrganizerRepository orgRepository) {
+		this.organizerRepository = orgRepository;
+	}
+
 	/*@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;*/
 
 	@Override
 	public Collection<Organizer> findAll() {
-		return null;
+		return this.organizerRepository.findAll();
 	}
 
 	@Override
-	public Organizer findById(int id) {
+	public Organizer findById(int oid) {
 		return null;
 	}
 
@@ -36,7 +42,7 @@ public class OrganizerServicesBean implements OrganizerServices{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int oid) {
 		
 	}
 	
@@ -66,13 +72,13 @@ public class OrganizerServicesBean implements OrganizerServices{
 	@Override
 	public void saveOrganizer(Organizer organizer) {
 		//organizer.setPassword(bCryptPasswordEncoder.encode(organizer.getPassword()));
-		orgDao.saveOrganizer(organizer);
+		organizerRepository.save(organizer);
 		
 	}
 
     @Override
     public Organizer findByOrganizerName(String username) {
-        return orgDao.findByOrganizerName(username);
+        return organizerRepository.findByOrganizerName(username);
     }
 
 }

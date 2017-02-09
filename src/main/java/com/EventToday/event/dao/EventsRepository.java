@@ -1,18 +1,17 @@
 package com.EventToday.event.dao;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.EventToday.event.model.Events;
 
+public interface EventsRepository extends Repository<Events, Integer>{
+	
+	//@Query("SELECT DISTINCT events FROM Events")
+    @Transactional(readOnly = true)
+    Collection<Events> findAll();
+	
 
-
-@Transactional
-public interface EventsRepository extends Repository<Events, Long>{
-	Events findByeventName(String eventName);		
-//	void saveEvents(Events event);	
-	List<Events> findAll();	
-	//void delete(int id);
 }

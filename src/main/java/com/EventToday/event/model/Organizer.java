@@ -23,8 +23,9 @@ public class Organizer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int roid;
-	
+	private Integer oid;
+
+
 	@Column(name="orgNname", nullable=false)
 	@NotEmpty(message = "Please enter orgnizer Name.")
 	private String organizerName;
@@ -58,6 +59,14 @@ public class Organizer {
 	@Transient
 	@NotEmpty(message = "Please retype your password.")
     private String retypePassword;
+	
+	public Integer getOid() {
+		return oid;
+	}
+
+	public void setOid(Integer oid) {
+		this.oid = oid;
+	}
 	
 	 public String getRetypePassword() {
 		return retypePassword;
@@ -102,13 +111,7 @@ public class Organizer {
 	
 	}
 
-	public int getRoid() {
-		return roid;
-	}
-
-	public void setRoid(int roid) {
-		this.roid = roid;
-	}
+	
 
 	public String getOrganizerName() {
 		return organizerName;
@@ -154,7 +157,7 @@ public class Organizer {
      
 	@Override
 	public String toString() {
-		return "Organizer [roid=" + roid + ", organizerName=" + organizerName + ", orgTelephone=" + orgTelephone
+		return "Organizer [oid=" + oid + ", organizerName=" + organizerName + ", orgTelephone=" + orgTelephone
 				+ ", orgContact=" + orgContact + ", mailAddress=" + mailAddress + ", orgAddress=" + orgAddress + "]";
 	}
 

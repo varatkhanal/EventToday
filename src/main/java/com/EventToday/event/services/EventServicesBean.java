@@ -20,12 +20,15 @@ public class EventServicesBean implements EventsServices{
 	@Autowired
 	private EventsRepository eventsRepository;
 	
+	public EventServicesBean(EventsRepository eventService){
+		this.eventsRepository = eventService;
+	}
 	
 	
 	@Override
 	//@Cacheable(value="events")
 	public Collection<Events> findAll() {
-		return eventsRepository.findAll();
+		return this.eventsRepository.findAll();
 	}
 
 	@Override

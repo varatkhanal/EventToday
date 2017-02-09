@@ -9,8 +9,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.EventTodays.events.dao")
-
+//@EnableJpaRepositories(basePackages = "com.EventTodays.events.dao")
 public class HibernateConfig {
 
 	    @Bean

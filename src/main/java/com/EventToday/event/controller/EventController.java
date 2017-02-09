@@ -26,6 +26,7 @@ import com.EventToday.event.model.Events;
 import com.EventToday.event.model.Organizer;
 import com.EventToday.event.services.EventsServices;
 import com.EventToday.event.services.OrganizerServices;
+import com.EventToday.event.validation.OrganizerValidator;
 
 
 
@@ -35,11 +36,11 @@ public class EventController {
 	
 	@Autowired
 	private EventsServices eventsServices;
-	
+
 	@Autowired
 	private OrganizerServices orgServices;
 	
-	
+		
 	@Autowired
 	MessageSource messageSource;
 	
@@ -60,7 +61,7 @@ public class EventController {
 	@RequestMapping(value={"/","/events"},
 			method=RequestMethod.GET)
 	public ModelAndView getEvents(ModelMap model){
-		Collection<Events> evnts = eventsServices.findAll();
+		Collection<Events> evnts = this.eventsServices.findAll();
 		model.addAttribute("evnts", evnts);
 		return new ModelAndView("allevents", model);
 		
@@ -70,7 +71,7 @@ public class EventController {
 			method=RequestMethod.GET
 			)	
 	public ResponseEntity<Events> getEvent(@PathVariable("id") int id){
-		Events evnts = eventsServices.findById(id);
+		Events evnts = this.eventsServices.findById(id);
 		if(evnts==null){
 			return new ResponseEntity<Events>(evnts, HttpStatus.NOT_FOUND);
 		}
@@ -89,7 +90,7 @@ public class EventController {
 	
 	@RequestMapping(value = { "/edit-{id}-event" }, method = RequestMethod.GET)
 	public ModelAndView editEvents(@PathVariable int id, ModelMap model) {
-		Events evnts = eventsServices.findById(id);
+		Events evnts = this.eventsServices.findById(id);
 		model.addAttribute("events", evnts);
 		model.addAttribute("edit", true);
 		return new ModelAndView("registration",model);
@@ -104,14 +105,14 @@ public class EventController {
 			return new ModelAndView("registration",model);
 		}
 
-		eventsServices.update(evnts);
+		this.eventsServices.update(evnts);
 		model.addAttribute("success", "Events " + evnts.getEventname()	+ " updated successfully");
 		return new ModelAndView("success",model);
 	}
 
 	@RequestMapping(value = { "/delete-{id}-event" }, method = RequestMethod.GET)
 	public String deleteEvents(@PathVariable("id") int id,ModelMap model) {
-		eventsServices.delete(id);
+		this.eventsServices.delete(id);
 		return "redirect:/events";
 		
 	}

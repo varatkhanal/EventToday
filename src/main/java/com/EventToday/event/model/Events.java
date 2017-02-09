@@ -27,7 +27,7 @@ public class Events{
 	private Integer id;
 	
 	@ManyToOne
-    @JoinColumn(name = "roid")
+    @JoinColumn(name = "oid")
     private Organizer organizer;
 
 	public Events() {
