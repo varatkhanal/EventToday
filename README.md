@@ -1,5 +1,6 @@
 # EventToday
 spring-hibernate
 
-create database eventnext;
+run application with
+mvn spring-boot:run
 
